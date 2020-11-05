@@ -12,11 +12,15 @@ def encrypt_caesar(plaintext, offset):
     encrypt_dummy = []
     #runs through the list and checks for between the accepted values
     for i in plaintext:
-        if ord(i) < ord('A') or ord(i) > ord('Z'):
-            return "Incorrect Input"
-        #makes adjustments using the offset
-        character_dummy = chr(ord('A') + ((ord(i) - ord('A') + offset) % 26))
-        encrypt_dummy.append(character_dummy)
+        print("input charcter : " + i)
+        if i.isupper():
+            character_dummy = chr(ord('A') + ((ord(i) - ord('A') + offset) % 26))
+            print("Changed character : " + character_dummy)
+            encrypt_dummy.append(character_dummy)
+            #makes adjustments using the offset
+        else:
+            encrypt_dummy.append(i)
+        
     return ''.join(encrypt_dummy)
 
 # Arguments: string, integer
@@ -25,11 +29,14 @@ def encrypt_caesar(plaintext, offset):
 def decrypt_caesar(ciphertext, offset):
     encrypt_dummy = []
     for i in ciphertext:
-        if ord(i) < ord('A') or ord(i) > ord('Z'):
-            return "Incorrect Input"
-        #makes adjustments using the offset
-        character_dummy = chr(ord('A') + ((ord(i) - ord('A') - offset) % 26))
-        encrypt_dummy.append(character_dummy)
+        if i.isupper():
+            character_dummy = chr(ord('A') + ((ord(i) - ord('A') - offset) % 26))
+            print("Changed character : " + character_dummy)
+            encrypt_dummy.append(character_dummy)
+            #makes adjustments using the offset
+        else:
+            encrypt_dummy.append(i)
+        
     return ''.join(encrypt_dummy)
 
 # Vigenere Cipher
@@ -38,12 +45,12 @@ def decrypt_caesar(ciphertext, offset):
 def encrypt_vigenere(plaintext, keyword):
     encrypt_dummy = []
     for i in range(len(plaintext)):
-        if ord(plaintext[i]) < ord('A') or ord(plaintext[i]) > ord('Z'):
-            return "Incorrect Input"
-        #calculates the offset 
-        offset = ord(keyword[i % len(keyword)]) - ord('A')
-        character_dummy = chr(ord('A') + ((ord(plaintext[i]) - ord('A') + offset) % 26))
-        encrypt_dummy.append(character_dummy)
+        if plaintext[i].isupper():
+            offset = ord(keyword[i % len(keyword)]) - ord('A')
+            character_dummy = chr(ord('A') + ((ord(plaintext[i]) - ord('A') + offset) % 26))
+            encrypt_dummy.append(character_dummy)
+        else:
+            encrypt_dummy.append(plaintext[i])
     return ''.join(encrypt_dummy)
 
 # Arguments: string, string
@@ -51,13 +58,14 @@ def encrypt_vigenere(plaintext, keyword):
 def decrypt_vigenere(ciphertext, keyword):
     encrypt_dummy = []
     for i in range(len(ciphertext)):
-        if ord(ciphertext[i]) < ord('A') or ord(ciphertext[i]) > ord('Z'):
-            return "Incorrect Input"
-        #calculates the offset
-        offset = ord(keyword[i % len(keyword)]) - ord('A')
-        character_dummy = chr(ord('A') + ((ord(ciphertext[i]) - ord('A') - offset) % 26))
-        encrypt_dummy.append(character_dummy)
+        if ciphertext[i].isupper():
+            offset = ord(keyword[i % len(keyword)]) - ord('A')
+            character_dummy = chr(ord('A') + ((ord(ciphertext[i]) - ord('A') - offset) % 26))
+            encrypt_dummy.append(character_dummy)
+        else:
+            encrypt_dummy.append(ciphertext[i])
     return ''.join(encrypt_dummy)
+    
 
 # Merkle-Hellman Knapsack Cryptosystem
 # Arguments: integer
@@ -158,6 +166,8 @@ def calculateS(R,Q):
             return S
 
 def main():
+
+     print(decrypt_vigenere("TAE ST!", "B"))
     
-	if __name__ == "__main__":
-   		main()
+if __name__ == "__main__":
+    main()
